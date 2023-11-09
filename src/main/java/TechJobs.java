@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by LaunchCode
@@ -10,7 +7,7 @@ public class TechJobs {
 
     static Scanner in = new Scanner(System.in);
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
 
         // Initialize our field map with key/name pairs
         HashMap<String, String> columnChoices = new HashMap<>();
@@ -45,7 +42,7 @@ public class TechJobs {
                     ArrayList<String> results = JobData.findAll(columnChoice);
 
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
-
+                    Collections.sort(results);
                     // Print list of skills, employers, etc
                     for (String item : results) {
                         System.out.println(item);
@@ -105,6 +102,7 @@ public class TechJobs {
                 }
             }
 
+
             // Validate user's input
             if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
                 System.out.println("Invalid choice. Try again.");
@@ -112,14 +110,31 @@ public class TechJobs {
                 validChoice = true;
             }
 
-        } while(!validChoice);
+        } while (!validChoice);
 
         return choiceKeys[choiceIdx];
     }
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        if (someJobs.isEmpty()) {
+            System.out.print("No Results");
+        } else {
+            int theCount = 0;
 
-        System.out.println("printJobs is not implemented yet");
+            System.out.println();
+            for (HashMap<String, String> item : someJobs) {
+                System.out.println("*****");
+                for (Map.Entry<String, String> set : item.entrySet()) {
+                    System.out.println(set.getKey() + ": " + set.getValue());
+                }
+                theCount += 1;
+                if (theCount == someJobs.size()) {
+                    System.out.println("*****");
+                } else {
+                    System.out.println("*****\n");
+                }
+            }
+        }
     }
 }
